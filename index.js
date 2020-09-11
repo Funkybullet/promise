@@ -1,7 +1,33 @@
-new Promise(resolve => {
-    setTimeout(() => {
-      resolve('hello')
-    }, 2000)
-  }).then(res => {
-    console.log(res)
-  })
+// 并发 和 并行 的区别？
+
+// 并发是宏观感念，比如有任务A和任务B，在一段时间内通过任务切换完成了这俩个任务，（比如微博服务器同时要处理一亿个人的评论）
+// 并行是微观概念，假设CPU有俩个核心，那么就同时完成任务A和任务B，同时完成多个任务的情况就可以称之为并行
+
+
+
+// 回调函数 (callback)
+// 什么是回调函数？ 回调函数有什么缺点？ 如何解决回调地狱问题？
+ajax(url,() =>{
+    //处理逻辑
+    ajax(url,() =>{
+        //处理逻辑
+        ajax(url,() =>{
+            //处理逻辑
+        })
+    })
+})
+
+// 回调函数的缺点：
+// 1.嵌套函数存在耦合性，一旦有所改动，就会影响到整体
+// 2.嵌套函数一多，就很难处理错误
+
+
+// Generator  (可以操控函数的执行)
+// 你理解的Generator是什么？
+function *foo(x) {
+    let y = 2 * (yield(x + 1))
+    let z = yield(y/3)
+    return (x + y +2)
+}
+let it = foo (5)
+console.log(it.next())
